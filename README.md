@@ -51,36 +51,7 @@ Every task update, creation, or deletion is synchronized across all connected co
 * Blade Templates
 * Alpine.js
 
----
 
-# Project Structure
-
-```
-SyncHub
-│
-├── app
-│   ├── Models
-│   │   ├── Project.php
-│   │   ├── Task.php
-│   │   └── User.php
-│
-├── resources
-│   └── views
-│       ├── livewire
-│       │   ├── project-dashboard.blade.php
-│       │   └── project-taskboard.blade.php
-│       └── layouts
-│           └── app.blade.php
-│
-├── database
-│   └── migrations
-│       ├── create_projects_table.php
-│       ├── create_tasks_table.php
-│       └── create_project_user_table.php
-│
-└── routes
-    └── web.php
-```
 
 ---
 
