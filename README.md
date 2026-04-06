@@ -1,8 +1,4 @@
-This is a high-level, professionally formatted **README.md** for **SyncHub**. I have structured it exactly like your VaultX example, focusing on the real-time collaboration and the modern Livewire Volt architecture.
 
-You can copy and paste this entire block:
-
-```markdown
 # ⚡ SyncHub — Real-Time Collaborative Workspace
 
 SyncHub is a high-performance, real-time task management platform built using Laravel 12 and Livewire Volt. 
