@@ -1,16 +1,19 @@
 FROM php:8.2-cli
 
-# Install system dependencies
+# Install system dependencies + Node
 RUN apt-get update && apt-get install -y \
     git \
     unzip \
     curl \
     libpq-dev \
     libzip-dev \
-    zip
+    zip \
+    nodejs \
+    npm
 
 # Install PHP extensions
 RUN docker-php-ext-install pdo pdo_mysql pdo_pgsql pgsql zip
+
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
@@ -19,6 +22,12 @@ WORKDIR /var/www
 
 # Copy project files
 COPY . .
+
+# Install frontend dependencies
+RUN npm install
+
+# Build Vite assets
+RUN npm run build
 
 # Install Laravel dependencies
 RUN composer install --no-dev --optimize-autoloader
