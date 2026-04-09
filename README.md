@@ -1,5 +1,7 @@
 # ⚡ SyncHub — Real-Time Collaborative Workspace
 
+Live Demo: https://synchub-c2y9.onrender.com
+
 SyncHub is a high-performance, real-time task management platform built using **Laravel 12** and **Livewire Volt**.
 
 The application allows teams to collaborate on project boards, synchronize tasks instantly across multiple users, and manage project workflows in a premium **dark-mode environment**.
@@ -163,6 +165,18 @@ UI Syncs Across All Connected Users
   Uses `syncWithoutDetaching()` to ensure safe collaboration invites.
 
 ---
+## Deployment
+
+The application is deployed on Render using Docker with a PostgreSQL database.
+
+Features currently deployed:
+- User authentication
+- Project dashboard
+- Team collaboration
+- Task management
+
+Planned improvement:
+- Real-time WebSocket updates using Laravel Reverb
 
 # 👨‍💻 Author
 
