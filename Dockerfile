@@ -32,6 +32,7 @@ RUN npm run build
 # Install Laravel dependencies
 RUN composer install --no-dev --optimize-autoloader
 
+RUN php artisan migrate --force
 # Generate Laravel key if not exists
 RUN php artisan key:generate || true
 
