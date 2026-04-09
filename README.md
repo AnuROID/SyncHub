@@ -1,6 +1,4 @@
 
-
-```markdown
 # ⚡ SyncHub — Real-Time Collaborative Workspace
 
 SyncHub is a high-performance, real-time task management platform built using Laravel 12 and Livewire Volt. 
