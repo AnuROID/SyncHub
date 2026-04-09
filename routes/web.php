@@ -4,11 +4,16 @@ use App\Http\Controllers\ProfileController;
 use App\Models\Project;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
+
 
 Route::get('/', function () {
     return view('welcome');
 });
-
+Route::get('/migrate-now', function () {
+    Artisan::call('migrate', ['--force' => true]);
+    return 'Migration completed';
+});
 Route::middleware(['auth','verified'])->group(function(){
 Route::get('/dashboard', function () {
     $projects = Project::where('user_id', Auth()->id())->
