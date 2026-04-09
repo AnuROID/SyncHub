@@ -13,12 +13,11 @@ new class extends Component {
     public Project $project;
 
     public $newTaskTitle = '';
-    public $inviteEmail='';
+    public $inviteEmail = '';
 
 
 
     public function addTask()
-
     {
 
         $this->validate([
@@ -40,7 +39,6 @@ new class extends Component {
     }
 
     public function updateStatus($taskId, $newStatus)
-
     {
 
         $task = Task::find($taskId);
@@ -58,7 +56,6 @@ new class extends Component {
     }
 
     public function deleteTask($taskId)
-
     {
 
         Task::destroy($taskId);
@@ -70,7 +67,6 @@ new class extends Component {
 
 
     public function with()
-
     {
 
         return [
@@ -86,15 +82,18 @@ new class extends Component {
         ];
 
     }
-    public function inviteMember(){
-        $this->validate([
-            'inviteEmail'=>'required|exists:users,email'],
-            ['inviteEmail.exists'=>'That user does not have a Syncboard account yet!']
+    public function inviteMember()
+    {
+        $this->validate(
+            [
+                'inviteEmail' => 'required|exists:users,email'
+            ],
+            ['inviteEmail.exists' => 'That user does not have a Syncboard account yet!']
         );
-        $user=App\Models\User::where('email',$this->invite_email)->first();
+        $user = App\Models\User::where('email', $this->invite_email)->first();
         $this->project->members()->syncWithoutDetaching([$user->id]);
         $this->reset('inviteEmail');
-        session()->flash('message','Member invite successfully!');
+        session()->flash('message', 'Member invite successfully!');
     }
 };
 
@@ -105,8 +104,9 @@ new class extends Component {
 <div class="p-6 space-y-6">
     <div class="flex gap-2 bg-gray-900 p-4 rounded-xl border border-gray-800 shadow-lg">
         <input type="text" wire:model="newTaskTitle" placeholder="What needs to be done?"
-               class="flex-1 bg-gray-800 border-gray-700 text-white rounded-lg focus:ring-indigo-500 placeholder-gray-500">
-        <button wire:click="addTask" class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-xl font-bold transition shadow-lg shadow-indigo-500/20">
+            class="flex-1 bg-gray-800 border-gray-700 text-white rounded-lg focus:ring-indigo-500 placeholder-gray-500">
+        <button wire:click="addTask"
+            class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-xl font-bold transition shadow-lg shadow-indigo-500/20">
             Add Task
         </button>
     </div>
@@ -115,10 +115,10 @@ new class extends Component {
         <h3 class="text-xs font-bold text-indigo-400 uppercase tracking-wider mb-2">Invite a Teammate</h3>
         <div class="flex gap-2">
             <input type="email" wire:model="inviteEmail" placeholder="friend@example.com"
-                   class="flex-1 bg-gray-800 border-gray-700 text-sm text-white rounded-lg focus:ring-indigo-500 placeholder-gray-500">
+                class="flex-1 bg-gray-800 border-gray-700 text-sm text-white rounded-lg focus:ring-indigo-500 placeholder-gray-500">
 
             <button wire:click="inviteMember"
-                    class="bg-indigo-600/20 hover:bg-indigo-600 text-indigo-400 hover:text-white border border-indigo-600/50 px-4 py-2 rounded-lg text-sm font-bold transition">
+                class="bg-indigo-600/20 hover:bg-indigo-600 text-indigo-400 hover:text-white border border-indigo-600/50 px-4 py-2 rounded-lg text-sm font-bold transition">
                 Invite
             </button>
         </div>
@@ -132,9 +132,11 @@ new class extends Component {
     <div class="space-y-3">
         <h3 class="text-sm font-semibold text-gray-500 px-1">Active Tasks</h3>
         @forelse($task as $item)
-            <div class="p-4 bg-gray-900 border border-gray-800 rounded-xl flex justify-between items-center hover:border-gray-700 transition group">
+            <div
+                class="p-4 bg-gray-900 border border-gray-800 rounded-xl flex justify-between items-center hover:border-gray-700 transition group">
                 <div>
-                    <h4 class="font-bold text-gray-100 group-hover:text-white {{ $item->status == 'done' ? 'line-through text-gray-500' : '' }}">
+                    <h4
+                        class="font-bold text-gray-100 group-hover:text-white {{ $item->status == 'done' ? 'line-through text-gray-500' : '' }}">
                         {{ $item->title }}
                     </h4>
                     <p class="text-[10px] text-gray-500 mt-1 uppercase tracking-tighter">
@@ -144,14 +146,19 @@ new class extends Component {
 
                 <div class="flex items-center gap-3">
                     <select wire:change="updateStatus({{ $item->id }}, $event.target.value)"
-                            class="bg-gray-800 border-gray-700 text-gray-300 text-xs rounded-lg focus:ring-indigo-500">
+                        class="bg-gray-800 border-gray-700 text-gray-300 text-xs rounded-lg focus:ring-indigo-500">
                         <option value="todo" {{ $item->status == 'todo' ? 'selected' : '' }}>To Do</option>
-                        <option value="in_progress" {{ $item->status == 'in_progress' ? 'selected' : '' }}>In Progress</option>
+                        <option value="in_progress" {{ $item->status == 'in_progress' ? 'selected' : '' }}>In Progress
+                        </option>
                         <option value="done" {{ $item->status == 'done' ? 'selected' : '' }}>Done</option>
                     </select>
 
-                    <button wire:click="deleteTask({{ $item->id }})" class="text-gray-600 hover:text-red-500 transition p-2">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+                    <button wire:click="deleteTask({{ $item->id }})"
+                        class="text-gray-600 hover:text-red-500 transition p-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                        </svg>
                     </button>
                 </div>
             </div>
@@ -161,4 +168,75 @@ new class extends Component {
             </div>
         @endforelse
     </div>
+    <div class="mt-10 bg-gray-900 border-gray-800 rounded-2xl overflow-hidden shadow-2xl">
+        <div class="px-6 py-4 border-b border-gray-800 flex justify-between items-center bg-gray-900/50">
+            <div>
+                <h1 class="text-white font-bold flex items-center gap-2">
+                    <svg class="w-5 h-5 text-indigo-500 " fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                    </svg>
+                    SyncSketch whiteboard
+                </h1>
+                <p class="text-[10px] text-gray-400 uppercase tracking-widest mt-1">Brainstorming Canvas</p>
+            </div>
+            <div class="flex gap-3">
+
+                <button onclick="event.preventDefault();event.stopImmediatePropagation(); clearCanvas()" class="text-xs text-gray-300 hover:text-red-400 transition font-bold uppercase">
+                    Clear Board
+                </button>
+            </div>
+        </div>
+        <div class="relative bg-gray-700" style="height:500px;" wire:ignore>
+            <canvas id="paintCanvas" class="w-full h-full cursor-crosshair"></canvas>
+        </div>
+
+
+    </div>
+
+<script>
+    const canvas = document.getElementById("paintCanvas");
+    const ctx = canvas.getContext('2d');
+    let isDrawing = false;
+    let lastX = 0;
+    let lastY = 0;
+
+    function resizeCanvas() {
+        canvas.width = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
+        ctx.lineJoin = 'round';
+        ctx.lineCap = 'round';
+        ctx.lineWidth = 3;
+        ctx.strokeStyle = 'white'
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+    function draw(e) {
+        if (!isDrawing) return;
+
+        ctx.beginPath();
+        ctx.moveTo(lastX, lastY);
+        ctx.lineTo(e.offsetX, e.offsetY);
+        ctx.stroke();
+        [lastX, lastY] = [e.offsetX, e.offsetY];
+    }
+
+    canvas.addEventListener('mousedown', (e) => {
+        isDrawing = true;
+        [lastX, lastY] = [e.offsetX, e.offsetY];
+    });
+    canvas.addEventListener('mousemove', draw);
+    canvas.addEventListener('mouseup', () => isDrawing = false);
+    canvas.addEventListener('mouseout', () => isDrawing = false);
+    function clearCanvas() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.beginPath();
+        isDrawing=false
+        console.log('canvas cleared instant ')
+    }
+</script>
+
+
 </div>
+
+
